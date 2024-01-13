@@ -10,10 +10,10 @@ export const fetchEvents = createAsyncThunk(
       const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/events');
       const data = await response.json();
       console.log(data);
-      return data.data;  // Return the data instead of dispatching an action here
+      return data.data;  
     } catch (error) {
       console.error('Error fetching event data:', error);
-      throw error;  // Throw the error to let createAsyncThunk handle the failure action
+      throw error;  
     }
   }
 );
@@ -65,7 +65,7 @@ export const deleteEvent = createAsyncThunk(
 
       const deletedEvent = await response.json();
       console.log(deletedEvent.data);
-      return deletedEvent.data;  // Return the data instead of dispatching an action here
+      return deletedEvent.data; 
     } catch (error) {
       console.error('Error deleting event:', error);
       throw error;  // Throw the error to let createAsyncThunk handle the failure action
@@ -156,7 +156,7 @@ export const eventSlice = createSlice({
     [editEvent.fulfilled]: (state, action) => {
       state.status = "success";
       const updatedEvent = action.payload;
-      const index = state.events.findIndex((s) => s.id === updatedEvent.id);
+      const index = state.events.findIndex((s) => s._id === updatedEvent._id);
       if (index !== -1) {
         state.events[index] = updatedEvent;
       }
@@ -171,7 +171,7 @@ export const eventSlice = createSlice({
     [deleteEvent.fulfilled]: (state, action) => {
       state.status = "success";
       state.events = state.events.filter(
-        (event) => event.id !== action.payload.id
+        (event) => event._id !== action.payload._id
       );
     },
     [deleteEvent.rejected]: (state, action) => {

@@ -84,6 +84,7 @@ export const editVolunteer = createAsyncThunk(
   async (updatedVolunteer, { dispatch }) => {
     try {
       const volunteerId = updatedVolunteer._id;
+      console.log(volunteerId)
 
       const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/volunteers/${volunteerId}`, {
         method: 'POST',
@@ -157,7 +158,7 @@ export const volunteerSlice = createSlice({
     [editVolunteer.fulfilled]: (state, action) => {
       state.status = "success";
       const updatedVolunteer = action.payload;
-      const index = state.volunteers.findIndex((s) => s.id === updatedVolunteer.id);
+      const index = state.volunteers.findIndex((s) => s._id === updatedVolunteer._id);
       if (index !== -1) {
         state.volunteers[index] = updatedVolunteer;
       }
@@ -172,7 +173,7 @@ export const volunteerSlice = createSlice({
     [deleteVolunteer.fulfilled]: (state, action) => {
       state.status = "success";
       state.volunteers = state.volunteers.filter(
-        (volunteer) => volunteer.id !== action.payload.id
+        (volunteer) => volunteer._id !== action.payload._id
       );
     },
     [deleteVolunteer.rejected]: (state, action) => {
