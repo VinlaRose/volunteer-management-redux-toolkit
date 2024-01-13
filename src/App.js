@@ -18,7 +18,7 @@ function App() {
                 <Link to="/">Events</Link>
               </li>
               <li>
-                <Link to="https://github.com/VinlaRose/volunteer-management-redux-toolkit">Github</Link>
+                <Link to="https://github.com/VinlaRose/volunteer-management-redux-toolkit">Github Link</Link>
               </li>
              
               
