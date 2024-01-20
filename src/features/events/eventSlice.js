@@ -7,7 +7,7 @@ export const fetchEvents = createAsyncThunk(
   'events/fetchEvents',
   async () => {
     try {
-      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/events');
+      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/events');
       const data = await response.json();
       console.log(data);
       return data.data;  
@@ -24,7 +24,7 @@ export const addEvent = createAsyncThunk(
     try {
       console.log(eventData);
 
-      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/events', {
+      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export const deleteEvent = createAsyncThunk(
     try {
       console.log(eventId);
 
-      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/events/${eventId}`, {
+      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/events/${eventId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const editEvent = createAsyncThunk(
     try {
       const eventId = updatedEvent._id;
 
-      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/events/${eventId}`, {
+      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/events/${eventId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

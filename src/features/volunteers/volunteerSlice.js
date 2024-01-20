@@ -10,7 +10,7 @@ export const fetchVolunteers = createAsyncThunk(
     'volunteers/fetchVolunteers',
     async () => {
     try {
-      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/volunteers');
+      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/volunteers');
       const data = await response.json();
       console.log(data);
       return data.data;
@@ -30,7 +30,7 @@ export const addVolunteer = createAsyncThunk(
     try {
       console.log(volunteerData);
 
-      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/volunteers', {
+      const response = await fetch('https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/volunteers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export const deleteVolunteer = createAsyncThunk(
     try {
       console.log(volunteerId);
 
-      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/volunteers/${volunteerId}`, {
+      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/volunteers/${volunteerId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export const editVolunteer = createAsyncThunk(
       const volunteerId = updatedVolunteer._id;
       console.log(volunteerId)
 
-      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-38g56lzus3htq.global.replit.dev/volunteers/${volunteerId}`, {
+      const response = await fetch(`https://3a6c0f80-717c-416f-9f7f-87969ce3e739-00-2zxb0azqlhubt.kirk.replit.dev/volunteers/${volunteerId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
