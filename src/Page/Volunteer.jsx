@@ -9,6 +9,18 @@ export const VolunteerPage = () => {
   const status = useSelector((state) => state.volunteers.status);
   const error = useSelector((state) => state.volunteers.error);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  
+
   useEffect(() => {
     if (status === 'idle' || status === 'error') {
       dispatch(fetchVolunteers());
@@ -47,7 +59,11 @@ export const VolunteerPage = () => {
   return (
     <div>
       <h1>Volunteer Page</h1>
-      <AddVolunteer />
+      <div>
+      <button onClick={openModal}>Add New Volunteer</button>
+      <AddVolunteer isOpen={isModalOpen} onClose={closeModal} />
+    </div>
+      
       <table>
         <thead>
           <tr>

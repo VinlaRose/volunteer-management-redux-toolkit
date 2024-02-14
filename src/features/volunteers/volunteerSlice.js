@@ -109,7 +109,7 @@ const initialState = {
 };
 
 export const volunteerSlice = createSlice({
-  name: "volunteers", // Corrected name to "volunteers"
+  name: "volunteers", 
   initialState,
   reducers: {
     setFilter: (state, action) => {

@@ -209,7 +209,7 @@ td {
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: #884A39;
   color: white;
   padding: 6px 10px;
   border: none;
@@ -218,7 +218,7 @@ button {
 }
 
 button.save {
-  background-color: #2196F3;
+  background-color: #884A39;
 }
 
 tr:hover {
@@ -292,7 +292,7 @@ h1 {
 
 .submit-button {
   padding: 10px 20px;
-  background-color: #0074d9;
+  background-color: #884A39;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -303,7 +303,7 @@ h1 {
 
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #884A39;
 }
 
 .volunteer-form {
@@ -355,7 +355,7 @@ h1 {
 
 .add-skill, .submit-button {
   padding: 10px 20px;
-  background-color: #0074d9;
+  background-color: #884A39;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -364,7 +364,7 @@ h1 {
 }
 
 .add-skill:hover, .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #884A39;
 }
 
 

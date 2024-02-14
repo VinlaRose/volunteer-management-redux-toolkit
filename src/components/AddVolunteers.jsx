@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addVolunteer } from '../features/volunteers/volunteerSlice';
 import { fetchEvents } from '../features/events/eventSlice';
 
-const AddVolunteer = () => {
+const AddVolunteer = ({isOpen, onClose}) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -15,9 +15,11 @@ const AddVolunteer = () => {
 
   const dispatch = useDispatch();
   const allEvents = useSelector(state => state.events.events)
-useEffect(() => {
+
+  useEffect(() => {
     dispatch(fetchEvents())
-},[dispatch])
+    },[dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -49,6 +51,8 @@ useEffect(() => {
     setPhone('');
     setSkills([]);
     setSelectedEvent([]);
+
+    onClose();
   };
 
   const handleAddSkill = () => {
@@ -86,10 +90,17 @@ useEffect(() => {
     setSelectedDays(selectedDays);
     setAvailability(selectedDays)
   };
+  if (!isOpen) return null;
+
+
   return (
-    
+     <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>&times;</span>
+        <div className="event-form">
+          <h2>Add Volunteer</h2>
     <div class="volunteer-form">
-  <h2>Add Volunteers</h2>
+  <h2>Add New Volunteer</h2>
   <form class="volunteer-form" onSubmit={handleSubmit}>
     <div class="form-group">
       <label for="volunteerName">Volunteer Name:</label>
@@ -176,8 +187,12 @@ useEffect(() => {
       </button>
     </div>
     <button class="submit-button" type="submit">Add Volunteer</button>
+    <button onClick={onClose}>Cancel</button>
   </form>
 </div>
+</div>
+      </div>
+    </div>
 
   );
 };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../features/events/eventSlice';
 
-const AddEvent = () => {
+const AddEvent = ({ isOpen, onClose }) => {
   const [eventName, setEventName] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -36,13 +36,21 @@ dispatch(addEvent(newEvent));
     setLocation('');
     setDescription('');
     setRequiredVolunteerRoles([]);
+
+    onClose();
    
   };
+  if (!isOpen) return null;
 
   return (
-    <div className="event-form">
-  <h2>Add Event</h2>
-  <form onSubmit={handleSubmit}>
+
+    <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>&times;</span>
+        <div className="event-form">
+          <h2>Add Event</h2>
+         
+          <form onSubmit={handleSubmit}>
     <div className="form-row">
       <label className="form-label" htmlFor="eventName">
         Event Name:
@@ -114,11 +122,15 @@ dispatch(addEvent(newEvent));
         onChange={(e) => setRequiredVolunteerRoles(e.target.value.split(','))}
       />
     </div>
-    <button type="submit" className="submit-button">
-      Add Event
-    </button>
-  </form>
-</div>
+    
+ 
+            <button type="submit">Add Event</button>
+            <button onClick={onClose}>Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
 
   );
 };

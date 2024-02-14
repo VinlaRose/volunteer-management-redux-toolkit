@@ -5,6 +5,16 @@ import { deleteEvent, editEvent, fetchEvents } from "../features/events/eventSli
 
 export const EventsPage = () => {
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   
 
   
@@ -66,7 +76,13 @@ console.log(error)
     <div>
       <h1>Events Page</h1>
 
-      <AddEvent />
+      <div>
+      <button onClick={openModal}>Add New Event</button>
+      <AddEvent isOpen={isModalOpen} onClose={closeModal} />
+    </div>
+      
+
+      
       {status === 'loading' && <p>Loading Patients List...</p>}
       {error && <p>Error: {error}</p>}
       <div className="event-cards">
