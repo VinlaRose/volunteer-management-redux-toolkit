@@ -1,35 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-
-
-
-
 export const fetchVolunteers = createAsyncThunk(
-    'volunteers/fetchVolunteers',
-    async () => {
+  'volunteers/fetchVolunteers',
+  async () => {
     try {
       const response = await fetch('https://backend-testing-khaki.vercel.app/volunteers');
+      if (!response.ok) {
+        throw new Error('Failed to fetch volunteer data');
+      }
       const data = await response.json();
       console.log(data);
       return data.data;
-      
     } catch (error) {
       console.error('Error fetching volunteer data:', error);
-      
+      throw error;
     }
   }
-
-) 
-  
+);
 
 export const addVolunteer = createAsyncThunk(
   'volunteers/addVolunteer',
-  async (volunteerData, { dispatch }) => {
+  async (volunteerData) => {
     try {
-      console.log(volunteerData);
-
       const response = await fetch('https://backend-testing-khaki.vercel.app/volunteers', {
         method: 'POST',
         headers: {
@@ -44,20 +37,19 @@ export const addVolunteer = createAsyncThunk(
 
       const addedVolunteer = await response.json();
       console.log(addedVolunteer.data);
-      return addedVolunteer.data;  // Return the data instead of dispatching an action here
+      return addedVolunteer.data;
     } catch (error) {
       console.error('Error adding volunteer:', error);
-      throw error;  // Throw the error to let createAsyncThunk handle the failure action
+      throw error;
     }
   }
 );
 
 export const deleteVolunteer = createAsyncThunk(
   'volunteers/deleteVolunteer',
-  async (volunteerId, { dispatch }) => {
+  async (volunteerId) => {
+    console.log(volunteerId)
     try {
-      console.log(volunteerId);
-
       const response = await fetch(`https://backend-testing-khaki.vercel.app/volunteers/${volunteerId}`, {
         method: 'DELETE',
         headers: {
@@ -70,24 +62,24 @@ export const deleteVolunteer = createAsyncThunk(
       }
 
       const deletedVolunteer = await response.json();
-      console.log(deletedVolunteer.data);
-      return deletedVolunteer.data;  // Return the data instead of dispatching an action here
+      
+      console.log(deletedVolunteer);
+      return volunteerId;
     } catch (error) {
       console.error('Error deleting volunteer:', error);
-      throw error;  // Throw the error to let createAsyncThunk handle the failure action
+      throw error;
     }
   }
 );
 
 export const editVolunteer = createAsyncThunk(
   'volunteers/editVolunteer',
-  async (updatedVolunteer, { dispatch }) => {
+  async (updatedVolunteer) => {
     try {
+      console.log(updatedVolunteer)
       const volunteerId = updatedVolunteer._id;
-      console.log(volunteerId)
-
       const response = await fetch(`https://backend-testing-khaki.vercel.app/volunteers/${volunteerId}`, {
-        method: 'POST',
+        method: 'PUT', 
         headers: {
           'Content-Type': 'application/json',
         },
@@ -100,14 +92,13 @@ export const editVolunteer = createAsyncThunk(
 
       const editedVolunteer = await response.json();
       console.log(editedVolunteer);
-      return editedVolunteer.data;  // Return the data instead of dispatching an action here
+      return editedVolunteer.data;
     } catch (error) {
       console.error('Error editing volunteer:', error);
-      throw error;  // Throw the error to let createAsyncThunk handle the failure action
+      throw error;
     }
   }
 );
-
 
 const initialState = {
   volunteers: [],
@@ -118,7 +109,7 @@ const initialState = {
 };
 
 export const volunteerSlice = createSlice({
-  name: "students",
+  name: "volunteers", // Corrected name to "volunteers"
   initialState,
   reducers: {
     setFilter: (state, action) => {
@@ -138,7 +129,7 @@ export const volunteerSlice = createSlice({
     },
     [fetchVolunteers.rejected]: (state, action) => {
       state.status = "error";
-      console.log(action.error.message);
+      console.error(action.error.message);
       state.error = action.error.message;
     },
     [addVolunteer.pending]: (state) => {
@@ -158,7 +149,7 @@ export const volunteerSlice = createSlice({
     [editVolunteer.fulfilled]: (state, action) => {
       state.status = "success";
       const updatedVolunteer = action.payload;
-      const index = state.volunteers.findIndex((s) => s._id === updatedVolunteer._id);
+      const index = state.volunteers.findIndex((volunteer) => volunteer._id === updatedVolunteer._id);
       if (index !== -1) {
         state.volunteers[index] = updatedVolunteer;
       }
@@ -172,9 +163,8 @@ export const volunteerSlice = createSlice({
     },
     [deleteVolunteer.fulfilled]: (state, action) => {
       state.status = "success";
-      state.volunteers = state.volunteers.filter(
-        (volunteer) => volunteer._id !== action.payload._id
-      );
+      console.log(action.payload)
+      state.volunteers = state.volunteers.filter((volunteer) => volunteer._id !== action.payload);
     },
     [deleteVolunteer.rejected]: (state, action) => {
       state.status = "error";
